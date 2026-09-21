@@ -64,9 +64,10 @@ the one place the pre-drop page speaks Direction A's language.
 
 ## Still open — these are Zach's and Lalo's, not a session's
 
-1. **The two Instagram handles are guesses.** `dials.instagramFounderHandle`
-   (`lalofarro`) and `dials.instagramMagazineHandle` (`swampmagazine`) were
-   invented here. A wrong handle is a dead link on every storefront page.
+1. ~~The two Instagram handles are guesses.~~ **Answered 2026-09-21:** Lalo's
+   personal is `gemstone_harry`, the magazine's is `swamp_magazine`. Both are in
+   `config/dials.ts`. Not verified against Instagram from here — taken on Zach's
+   word.
 2. **`dials.contactEmail` (`hello@swampmagazine.com`) is a guess**, and no MX is
    set up on the domain — mail to it bounces silently today.
 3. **All seven pages need real copy from Lalo.** Until then each carries

@@ -82,13 +82,17 @@ export const dials = {
 
   /**
    * Instagram handles, without the "@": the founder's personal account and the
-   * magazine's. Both are PLACEHOLDERS -- nobody has confirmed either, and the
-   * footer links straight at instagram.com/<handle> from every storefront
-   * page, so a wrong handle is a dead link sitewide rather than a cosmetic
-   * slip. Confirm with Lalo before the drop.
+   * magazine's. Confirmed by Zach 2026-09-21, replacing the placeholders this
+   * shipped with. The footer links straight at instagram.com/<handle> from
+   * every page, so a wrong handle is a dead link sitewide -- change them here
+   * and nowhere else.
+   *
+   * The footer labels these LALO FARRO and SWAMP MAGAZINE rather than showing
+   * the handles: `gemstone_harry` does not read as a person's name, and the
+   * footer is the one place a reader is scanning for who rather than what.
    */
-  instagramFounderHandle: "lalofarro",
-  instagramMagazineHandle: "swampmagazine",
+  instagramFounderHandle: "gemstone_harry",
+  instagramMagazineHandle: "swamp_magazine",
 
   /**
    * Where the footer's CONTACT page points its mailto. PLACEHOLDER: no inbox
