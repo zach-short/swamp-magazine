@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { SiteFooter } from "@/features/storefront";
 import { getSiteSettings } from "@/lib/site-mode.server";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
@@ -10,6 +11,18 @@ import { SubscribeForm } from "../subscribe-form/subscribe-form";
 // Founder uploads a hero shot into this slot via the admin (P4); until then
 // the page runs type-only on cream, per the mockup's red-vermillion language.
 const BG_SLOT_KEY = "coming_soon_bg";
+
+/**
+ * LIFTED, adapted -- storefrontCopy.ticker plus the founder's COMING SOON.
+ * It stays here rather than in the storefront's copy file because these are
+ * coming-soon's words; the storefront should not own them.
+ *
+ * The trailing space is load-bearing: MarqueeTicker renders it `whitespace-pre`
+ * precisely because HTML would collapse it at each span boundary and visibly
+ * break the loop's rhythm. The local marquee this replaced used
+ * `whitespace-nowrap` and had that bug.
+ */
+const TICKER_LINE = "SWAMP MAGAZINE * THE THIRD ISSUE * COMING SOON * ";
 
 type BackgroundSlot = { url: string; alt: string };
 
@@ -25,53 +38,47 @@ export async function ComingSoonScreen() {
   return (
     <main
       className={cn(
-        "relative flex min-h-dvh flex-col overflow-hidden text-brand-red",
+        "flex min-h-dvh flex-col",
         background ? "bg-ink" : "bg-cream",
       )}
     >
-      {background ? (
-        <Image
-          src={background.url}
-          alt={background.alt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-80"
-        />
-      ) : null}
+      {/* The hero is its own positioning context so the founder's background
+          fills the poster and stops there. Before the footer existed the image
+          was laid against <main>, which was the whole page -- leave it there
+          and it stretches behind the footer's links as well. */}
+      <div className="relative flex grow flex-col overflow-hidden text-brand-red">
+        {background ? (
+          <Image
+            src={background.url}
+            alt={background.alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-80"
+          />
+        ) : null}
 
-      <div className="relative flex grow flex-col items-center justify-center gap-10 px-6 py-16 text-center">
-        <header className="flex flex-col gap-2">
-          <p className="font-body text-xs tracking-[0.35em] sm:text-sm">
-            FROM LALO FARRO
-          </p>
-          <h1 className="font-display text-[clamp(3rem,13vw,9rem)] leading-[0.95]">
-            SWAMP MAGAZINE
-          </h1>
-          <p className="font-body text-sm tracking-[0.35em]">THE THIRD ISSUE</p>
-        </header>
+        <div className="relative flex grow flex-col items-center justify-center gap-10 px-6 py-16 text-center">
+          <header className="flex flex-col gap-2">
+            <p className="font-body text-xs tracking-[0.35em] sm:text-sm">
+              FROM LALO FARRO
+            </p>
+            <h1 className="font-display text-[clamp(3rem,13vw,9rem)] leading-[0.95]">
+              SWAMP MAGAZINE
+            </h1>
+            <p className="font-body text-sm tracking-[0.35em]">
+              THE THIRD ISSUE
+            </p>
+          </header>
 
-        {dropAt ? <DropCountdown targetIso={dropAt.toISOString()} /> : null}
+          {dropAt ? <DropCountdown targetIso={dropAt.toISOString()} /> : null}
 
-        <SubscribeForm />
+          <SubscribeForm />
+        </div>
       </div>
 
-      <Ticker />
+      <SiteFooter tickerLine={TICKER_LINE} />
     </main>
-  );
-}
-
-function Ticker() {
-  const line = "SWAMP MAGAZINE * THE THIRD ISSUE * COMING SOON * ";
-  const half = line.repeat(4);
-
-  return (
-    <div className="relative overflow-hidden border-t-2 border-current py-2">
-      <div className="animate-marquee flex w-max whitespace-nowrap font-display text-lg sm:text-xl">
-        <span>{half}</span>
-        <span aria-hidden>{half}</span>
-      </div>
-    </div>
   );
 }
 

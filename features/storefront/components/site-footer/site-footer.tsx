@@ -10,6 +10,15 @@ import { storefrontCopy } from "../../lib/storefront-copy";
 import { MarqueeTicker } from "../marquee-ticker/marquee-ticker";
 import { StarMark } from "../star-mark/star-mark";
 
+export type SiteFooterProps = {
+  /**
+   * Overrides the storefront's ticker line. Coming-soon passes its own, which
+   * carries COMING SOON -- the one thing that page exists to say -- so the two
+   * pages share one marquee implementation without sharing their words.
+   */
+  tickerLine?: string;
+};
+
 // The storefront's one footer, shared by the landing, the product pages and the
 // stub pages the footer itself links to -- so the navigation is the same
 // wherever a reader lands.
@@ -20,10 +29,12 @@ import { StarMark } from "../star-mark/star-mark";
 // the footer, and an entrance animation on navigation would be noise, not
 // language. The columns are laid out on the same hairline-and-tracking grammar
 // as the catalog index above them.
-export function SiteFooter() {
+export function SiteFooter({
+  tickerLine = storefrontCopy.ticker,
+}: SiteFooterProps = {}) {
   return (
     <footer className="border-t border-brand-red/35 bg-ink pt-6 md:pt-[26px]">
-      <MarqueeTicker line={storefrontCopy.ticker} />
+      <MarqueeTicker line={tickerLine} />
 
       <div className="px-5 pt-12 pb-10 md:px-[120px] md:pt-[60px] md:pb-[34px]">
         <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-x-10">

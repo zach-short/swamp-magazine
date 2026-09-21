@@ -16,12 +16,12 @@ Two decisions were his, taken in chat before any code:
 
 ## What shipped
 
-| File | What it is |
-|---|---|
-| `features/storefront/lib/footer-links.ts` | The link registry. Every destination is one line here. |
-| `features/storefront/components/site-footer/site-footer.tsx` | The footer, shared by the landing, the product pages and the stubs. |
-| `features/storefront/components/placeholder-screen/placeholder-screen.tsx` | One screen behind every unwritten destination. |
-| `app/{about,contact,stockists,shipping,faq,privacy,terms}/page.tsx` | Seven stubs, all `robots: noindex`, all prerendered static. |
+| File                                                                       | What it is                                                          |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `features/storefront/lib/footer-links.ts`                                  | The link registry. Every destination is one line here.              |
+| `features/storefront/components/site-footer/site-footer.tsx`               | The footer, shared by the landing, the product pages and the stubs. |
+| `features/storefront/components/placeholder-screen/placeholder-screen.tsx` | One screen behind every unwritten destination.                      |
+| `app/{about,contact,stockists,shipping,faq,privacy,terms}/page.tsx`        | Seven stubs, all `robots: noindex`, all prerendered static.         |
 
 It keeps Direction A's footer spine exactly as `direction-a-handoff.md` par.5
 specified it — 1px red-35% top rule, the marquee ticker, the byline — and hangs
@@ -39,6 +39,28 @@ Three deliberate calls, so a later session does not "fix" them:
 - **`ADMIN` sits in the fine-print row, not a column.** It is a door for one
   person, not a section of the site; `/admin` is already behind the Google
   allowlist, so linking it costs nothing.
+
+## Amendment, 2026-09-21 — the footer is on coming-soon too
+
+Zach asked for it on the pre-drop page as well. Three things had to change; none
+of them was "render `<SiteFooter />` at the bottom".
+
+- **`SiteFooter` took a `tickerLine` prop.** Coming-soon's marquee carries
+  COMING SOON, which is the one thing that page exists to say, so the two pages
+  now share one marquee implementation without sharing their words. The default
+  is still `storefrontCopy.ticker`, so every existing caller is unchanged.
+- **The local `Ticker` in `coming-soon-screen.tsx` is gone.** It was a second
+  copy of `MarqueeTicker` with the same CSS animation and a bug `MarqueeTicker`
+  had already fixed: `whitespace-nowrap` collapses the line's trailing space at
+  each span boundary, visibly breaking the loop's rhythm. `MarqueeTicker` uses
+  `whitespace-pre` for exactly that reason. Consolidating fixed it.
+- **The background image moved into its own hero wrapper.** It was laid `fill`
+  against `<main>`, which used to be the whole page. Left there, the founder's
+  photograph would stretch behind the footer's links as well. Verified by
+  forcing a background slot locally: the image now stops at the footer's rule.
+
+The cream poster meeting the ink footer is a deliberate hard edge — it is also
+the one place the pre-drop page speaks Direction A's language.
 
 ## Still open — these are Zach's and Lalo's, not a session's
 
