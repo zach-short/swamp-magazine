@@ -79,4 +79,21 @@ export const dials = {
    * founder lands on a different domain.
    */
   canonicalSiteUrl: "https://swampmagazine.com",
+
+  /**
+   * Instagram handles, without the "@": the founder's personal account and the
+   * magazine's. Both are PLACEHOLDERS -- nobody has confirmed either, and the
+   * footer links straight at instagram.com/<handle> from every storefront
+   * page, so a wrong handle is a dead link sitewide rather than a cosmetic
+   * slip. Confirm with Lalo before the drop.
+   */
+  instagramFounderHandle: "lalofarro",
+  instagramMagazineHandle: "swampmagazine",
+
+  /**
+   * Where the footer's CONTACT page points its mailto. PLACEHOLDER: no inbox
+   * has been set up on the domain, and mail to an address whose MX does not
+   * exist bounces without telling the sender anything useful.
+   */
+  contactEmail: "hello@swampmagazine.com",
 } as const;

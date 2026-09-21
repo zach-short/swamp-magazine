@@ -4,8 +4,8 @@ import { catalogNumber, getCatalog, getLandingImagery } from "../../lib/catalog"
 import { storefrontCopy } from "../../lib/storefront-copy";
 import { CatalogIndex } from "../catalog-index/catalog-index";
 import { FilmBand } from "../film-band/film-band";
-import { MarqueeTicker } from "../marquee-ticker/marquee-ticker";
 import { Reveal } from "../reveal/reveal";
+import { SiteFooter } from "../site-footer/site-footer";
 import { StarMark } from "../star-mark/star-mark";
 
 // Direction A ("Feature Presentation"), picked by Zach 2026-09-08: the store as
@@ -99,12 +99,7 @@ export async function LiveLandingScreen() {
         />
       )}
 
-      <footer className="border-t border-brand-red/35 bg-ink pt-6 pb-7 md:pt-[26px] md:pb-[30px]">
-        <MarqueeTicker line={storefrontCopy.ticker} />
-        <p className="mt-3.5 text-center font-body text-[10px] font-medium tracking-[0.35em] text-cream/45">
-          {storefrontCopy.byline}
-        </p>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

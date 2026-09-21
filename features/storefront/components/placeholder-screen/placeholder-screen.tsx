@@ -1,0 +1,58 @@
+import Link from "next/link";
+import type { ReactNode } from "react";
+
+import { storefrontCopy } from "../../lib/storefront-copy";
+import { SiteFooter } from "../site-footer/site-footer";
+import { StarMark } from "../star-mark/star-mark";
+
+export type PlaceholderScreenProps = {
+  /** The page's own name, as the footer link that reached it spells it. */
+  title: string;
+  /** Anything the page can honestly say already -- /contact's mailto is the
+   * only caller using it so far. Everything else stays empty rather than
+   * filling the space with copy nobody wrote. */
+  children?: ReactNode;
+};
+
+// One screen behind every footer destination the founder has not written yet.
+// Shared rather than seven near-identical pages, so the holding state is a
+// single edit and replacing a page means deleting its route's call here, not
+// unpicking a bespoke layout.
+//
+// It is deliberately a real page in Direction A's language -- ink, the mark,
+// the masthead, the same footer -- and not a styled 404: the link that reached
+// it is a promise the site intends to keep, and a reader who follows ABOUT
+// should land somewhere that says so rather than somewhere that looks broken.
+export function PlaceholderScreen({ title, children }: PlaceholderScreenProps) {
+  return (
+    <main className="flex min-h-dvh flex-col bg-ink">
+      <header className="flex h-16 shrink-0 items-center justify-between gap-4 px-5 md:px-10">
+        <Link
+          href="/"
+          className="font-display text-[15px] tracking-[0.05em] text-brand-red transition-colors duration-200 hover:text-brand-yellow focus-visible:text-brand-yellow focus-visible:outline-none md:text-[17px]"
+        >
+          {storefrontCopy.wordmark}
+        </Link>
+        <Link
+          href="/"
+          className="font-body text-[10px] font-semibold tracking-[0.3em] text-cream/60 transition-colors duration-200 hover:text-brand-red focus-visible:text-brand-red focus-visible:outline-none md:text-[11px]"
+        >
+          {storefrontCopy.back}
+        </Link>
+      </header>
+
+      <section className="flex grow flex-col items-center justify-center gap-7 px-5 py-24 text-center md:py-32">
+        <StarMark className="w-[32px] text-brand-red" />
+        <h1 className="font-display text-[13vw] leading-none tracking-[0.03em] text-cream uppercase sm:text-[64px]">
+          {title}
+        </h1>
+        <p className="font-body text-[11px] font-medium tracking-[0.3em] text-cream/45">
+          {storefrontCopy.pagePending}
+        </p>
+        {children}
+      </section>
+
+      <SiteFooter />
+    </main>
+  );
+}

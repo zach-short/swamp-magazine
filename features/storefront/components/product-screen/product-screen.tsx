@@ -7,6 +7,7 @@ import { formatUsd } from "@/lib/money";
 import type { ProductDetail } from "../../lib/catalog";
 import { storefrontCopy } from "../../lib/storefront-copy";
 import { Reveal } from "../reveal/reveal";
+import { SiteFooter } from "../site-footer/site-footer";
 
 // Direction A's product page: the shoot on the left, an ink panel on the right,
 // nothing between them. The order block is the same CheckoutForm P3 shipped --
@@ -14,7 +15,7 @@ import { Reveal } from "../reveal/reveal";
 // over the photograph, red, per the founder's own mockups.
 export function ProductScreen({ product }: { product: ProductDetail }) {
   return (
-    <main className="min-h-dvh bg-ink">
+    <main className="bg-ink">
       <div className="grid min-h-dvh grid-cols-1 md:grid-cols-[3fr_2fr]">
         <div className="relative min-h-[58dvh] overflow-hidden bg-ink md:min-h-dvh">
           {/* Background first, cutout second, solid ink last: the panel beside
@@ -75,6 +76,10 @@ export function ProductScreen({ product }: { product: ProductDetail }) {
           </Reveal>
         </div>
       </div>
+
+      {/* Below the split, so the product still opens as a full-viewport
+          statement and the navigation is one scroll away rather than in it. */}
+      <SiteFooter />
     </main>
   );
 }

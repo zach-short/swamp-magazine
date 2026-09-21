@@ -23,4 +23,12 @@ export const storefrontCopy = {
   ticker: "SWAMP MAGAZINE * THE THIRD ISSUE * ",
   /** LIFTED -- the order mockups' way back, verbatim. */
   back: "BACK",
+  /**
+   * INVENTED -- the holding line on a footer page whose copy the founder has
+   * not written yet (/about, /contact, /stockists, /shipping, /faq, /privacy,
+   * /terms). Deliberately flat: a placeholder written in the magazine's voice
+   * is a placeholder that ships by accident. Every page carrying it is
+   * `robots: noindex` until it is replaced.
+   */
+  pagePending: "THIS PAGE IS STILL BEING WRITTEN.",
 } as const;
